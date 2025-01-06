@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <a href="/logout">Logout</a>
+    <h2>Manage Assets</h2>
+    <form action="/assets" method="post">
+        <input type="text" name="name" placeholder="Asset Name" required>
+        <input type="text" name="category" placeholder="Category" required>
+        <button type="submit">Add Asset</button>
+    </form>
+    <h2>Asset Inventory</h2>
+    <ul>
+        {% for asset in assets %}
+        <li>{{ asset.name }} ({{ asset.category }}) - {{ 'Available' if asset.is_available else 'Checked Out' }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+</head>
+<body>
+    <h1>User Dashboard</h1>
+    <a href="/logout">Logout</a>
+    <h2>Available Assets</h2>
+    <form action="/log_asset" method="post">
+        <select name="asset_id">
+            {% for asset in assets if asset.is_available %}
+            <option value="{{ asset.id }}">{{ asset.name }} ({{ asset.category }})</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Check Out</button>
+    </form>
+    <h2>Your Checked-Out Assets</h2>
+    <ul>
+        {% for asset in user_assets %}
+        <li>{{ asset.name }} - <form action="/log_asset" method="post" style="display:inline;">
+            <input type="hidden" name="asset_id" value="{{ asset.id }}">
+            <button type="submit">Return</button>
+        </form></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
